@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+
+  # API
+  freeai-api:
+    container_name: freeai-api
+    build: ./
+    volumes:
+      - ./app:/usr/src/freeai-api/app
+    working_dir: /usr/src/freeai-api
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    networks:
+      - freeai_common_link
+
+networks:
+  freeai_common_link:
+    external: true
