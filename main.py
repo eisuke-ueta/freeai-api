@@ -4,6 +4,7 @@ from flask_cors import CORS
 from app.commons.config import Config
 from app.commons.context import Context
 from app.controllers.file_controller import FileController
+from app.controllers.ocr_controller import OcrController
 
 API_VERSION = '/api/v1'
 
@@ -22,9 +23,11 @@ def files_upload():
 
 @app.route(API_VERSION + '/files/ocr', methods=['POST'])
 def files_ocr():
-    input_data = request.data
-    print(input_data)
-    return {}
+    if request.method == 'POST':
+        context = Context(app.logger)
+        result = OcrController(context).execute(request)
+        return result
+    return jsonify({})
 
 
 @app.route('/', methods=['GET'])
