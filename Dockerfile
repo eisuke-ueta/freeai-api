@@ -6,6 +6,8 @@ RUN apt-get update \
 && apt-get install -y locales \
 && apt-get install -y tesseract-ocr \
 && apt-get install -y tesseract-ocr-jpn \
+&& apt-get install -y mysql-client \
+&& apt-get install -y libmysqlclient-dev \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
@@ -21,4 +23,7 @@ RUN pip3 install -r /root/requirements.txt
 COPY . /usr/src/freeai-api
 WORKDIR /usr/src/freeai-api
 
-CMD [ "python3", "main.py" ]
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]

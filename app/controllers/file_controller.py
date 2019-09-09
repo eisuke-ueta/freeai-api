@@ -14,7 +14,7 @@ class FileController(object):
         self.config = context.config
 
     def upload(self, request: Any) -> str:
-        self.logger.info("START - upload")
+        self.logger.info("START")
         response = jsonify({})
 
         try:
@@ -28,7 +28,7 @@ class FileController(object):
         except Exception as e:
             self.logger.error(e)
 
-        self.logger.info("END - upload")
+        self.logger.info("END")
         return response
 
     def delete(self, id: str) -> str:

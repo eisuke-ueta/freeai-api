@@ -5,11 +5,23 @@ services:
   freeai-api:
     container_name: freeai-api
     build: ./
+    depends_on:
+      - freeai-mysql
     volumes:
       - ./app:/usr/src/freeai-api/app
     working_dir: /usr/src/freeai-api
     ports:
       - "5000:5000"
+    env_file:
+      - .env
+    networks:
+      - freeai_common_link
+
+  freeai-mysql:
+    container_name: freeai-mysql
+    build: ./mysql
+    ports:
+      - "3306:3306"
     env_file:
       - .env
     networks:

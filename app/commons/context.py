@@ -1,14 +1,7 @@
-# from logging import DEBUG, StreamHandler, getLogger
-
-# logger = getLogger(__name__)
-# handler = StreamHandler()
-# handler.setLevel(DEBUG)
-# logger.setLevel(DEBUG)
-# logger.addHandler(handler)
-
 from flask import Flask
 
 from app.commons.config import Config
+from app.middlewares.database import Session
 
 
 class Context(object):
@@ -18,3 +11,8 @@ class Context(object):
     def __init__(self, logger: Flask.logger) -> None:
         self.logger = logger
         self.config = Config()
+        self.user = {}
+        self.session = Session
+
+    def set_user(self, user: dict) -> None:
+        self.user = user

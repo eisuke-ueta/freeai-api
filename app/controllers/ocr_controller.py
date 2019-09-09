@@ -1,7 +1,7 @@
 import json
 from typing import Any
 
-from flask import jsonify, abort
+from flask import abort, jsonify
 
 from app.commons.context import Context
 from app.services.ocr_service import OcrService

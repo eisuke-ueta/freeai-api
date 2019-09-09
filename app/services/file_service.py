@@ -2,7 +2,6 @@ import os
 import secrets
 
 from PIL import Image
-from werkzeug import secure_filename
 from werkzeug.datastructures import FileStorage
 
 from app.aws.s3_client import S3Client
@@ -33,8 +32,10 @@ class FileService(object):
             file_path = self._convert_from_png(file_path)
 
         # Upload to S3
+        basename = os.path.basename(file_path)
+        key = os.path.join(self.config.IMAGE_DIR, basename)
         object_url = S3Client(self.context).upload_file(
-            file_path, os.path.basename(file_path), is_public=True, content_type=self.MIME_TYPE_JPEG)
+            file_path, key, is_public=True, content_type=self.MIME_TYPE_JPEG)
 
         return [object_url]
 
