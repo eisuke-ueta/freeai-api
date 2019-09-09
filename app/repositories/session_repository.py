@@ -44,3 +44,6 @@ class SessionRepository(object):
 
     def save(self) -> None:
         self.session.commit()
+
+    def rollback(self) -> None:
+        self.session.rollback()

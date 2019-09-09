@@ -9,7 +9,6 @@ class Config(object):
 
     AWS_S3_BUCKET = os.getenv('AWS_S3_BUCKET')
     APP_SECRET = os.getenv('APP_SECRET')
-    IMAGE_DIR = os.getenv('IMAGE_DIR')
 
     MYSQL_URI = os.getenv('MYSQL_URI')
 

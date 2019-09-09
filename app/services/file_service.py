@@ -10,6 +10,8 @@ from app.commons.context import Context
 
 class FileService(object):
 
+    DEFAULT_DIR = "default"
+
     FILE_TYPE_JPEG = "jpeg"
 
     MIME_TYPE_PNG = "image/png"
@@ -33,7 +35,7 @@ class FileService(object):
 
         # Upload to S3
         basename = os.path.basename(file_path)
-        key = os.path.join(self.config.IMAGE_DIR, basename)
+        key = os.path.join(self.DEFAULT_DIR, basename)
         object_url = S3Client(self.context).upload_file(
             file_path, key, is_public=True, content_type=self.MIME_TYPE_JPEG)
 

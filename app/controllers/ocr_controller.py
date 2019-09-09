@@ -14,10 +14,10 @@ class OcrController(object):
         self.config = context.config
 
     def execute(self, request: Any) -> str:
-        self.logger.info("START")
-        response = jsonify({})
-
         try:
+            if request.method != 'POST':
+                return jsonify({})
+
             data = json.loads(request.data.decode('utf-8'))
             if 'image_url' not in data:
                 abort(400, {'message': 'Image url does not exit'})
@@ -25,9 +25,7 @@ class OcrController(object):
             image_url = data["image_url"]
             text = OcrService(self.context).execute(image_url)
 
-            response = jsonify({'text': text})
+            return jsonify({'text': text})
         except Exception as e:
             self.logger.error(e)
-
-        self.logger.info("END")
-        return response
+            abort(500, {'message': e.message})

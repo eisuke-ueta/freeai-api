@@ -12,7 +12,7 @@ class Context(object):
         self.logger = logger
         self.config = Config()
         self.user = {}
-        self.session = Session
+        self.session = Session()
 
     def set_user(self, user: dict) -> None:
         self.user = user

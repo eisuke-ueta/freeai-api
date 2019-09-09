@@ -15,21 +15,20 @@ class FileController(object):
 
     def upload(self, request: Any) -> str:
         self.logger.info("START")
-        response = jsonify({})
-
         try:
+            if request.method != 'POST':
+                return jsonify({})
+
             if 'file' not in request.files:
                 abort(400, {'message': 'File does not exit'})
 
             fileStorageObj = request.files['file']
             file_urls = FileService(self.context).upload(fileStorageObj)
 
-            response = jsonify({'urls': file_urls})
+            return jsonify({'urls': file_urls})
         except Exception as e:
             self.logger.error(e)
-
-        self.logger.info("END")
-        return response
+            abort(500, {'message': e.message})
 
     def delete(self, id: str) -> str:
         return FileService(self.context).delete(id)
