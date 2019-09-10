@@ -17,8 +17,7 @@ class OcrService(object):
 
     def execute(self, image_url: str) -> str:
         # Download file
-        filename = S3Client(self.context).download_file(
-            image_url, self.config.TMP_DIR)
+        filename = S3Client(self.context).download_file(image_url, self.config.TMP_DIR)
 
         # OCR
         raw_text = pytesseract.image_to_string(Image.open(filename),

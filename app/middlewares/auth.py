@@ -21,9 +21,7 @@ class Auth(object):
         data = json.loads(request.data.decode('utf-8'))
 
         payload = {'email': data["email"]}
-        token = jwt.encode(payload,
-                           self.config.APP_SECRET,
-                           algorithm=self.HS256).decode('utf-8')
+        token = jwt.encode(payload, self.config.APP_SECRET, algorithm=self.HS256).decode('utf-8')
 
         # TODO Save to database
         self.tokens.append(token)

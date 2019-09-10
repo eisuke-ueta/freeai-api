@@ -36,8 +36,10 @@ class FileService(object):
         # Upload to S3
         basename = os.path.basename(file_path)
         key = os.path.join(self.DEFAULT_DIR, basename)
-        object_url = S3Client(self.context).upload_file(
-            file_path, key, is_public=True, content_type=self.MIME_TYPE_JPEG)
+        object_url = S3Client(self.context).upload_file(file_path,
+                                                        key,
+                                                        is_public=True,
+                                                        content_type=self.MIME_TYPE_JPEG)
 
         return [object_url]
 

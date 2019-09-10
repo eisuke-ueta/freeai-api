@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update \
 && apt-get install -y python3.6 \
 && apt-get install -y python3-pip \
+&& apt-get install -y nano \
 && apt-get install -y locales \
 && apt-get install -y tesseract-ocr \
 && apt-get install -y tesseract-ocr-jpn \

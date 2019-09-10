@@ -21,7 +21,13 @@ $ docker-compose build
 
 # Start servers
 $ docker-compose up
+
+# Migration
+$ docker-compose exec freeai-api sh scripts/migrate.sh
+
+# TODO Rollback
 ```
+
 
 ## Libraries
 

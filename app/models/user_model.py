@@ -18,8 +18,5 @@ class UserModel(BaseModel):
     confirmation_token = Column('confirmation_token', String(255))
     confirmation_sent_at = Column('confirmation_sent_at', DATETIME)
     confirmed_at = Column('confirmed_at', DATETIME)
-    created_at = Column('created_at',
-                        DATETIME,
-                        default=datetime.now,
-                        nullable=False)
+    created_at = Column('created_at', DATETIME, default=datetime.now, nullable=False)
     updated_at = Column('updated_at', DATETIME, onupdate=datetime.now)

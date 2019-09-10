@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm.session import Session
@@ -35,12 +35,16 @@ class SessionRepository(object):
         self.session.delete(model)
 
     def find(self, primary_id: int) -> DeclarativeMeta:
-        return self.session.query(self.model_class).filter(
-            self.model_class.id == primary_id).one_or_none()
+        return self.session.query(self.model_class).filter(self.model_class.id == primary_id).one_or_none()
 
-    def exist(self, primary_id: Union[int, str]) -> bool:
-        return self.session.query(self.model_class).filter(
-            self.model_class.id == primary_id).exists().scalar()
+    def find_by_token(self, token: str) -> DeclarativeMeta:
+        return self.session.query(self.model_class).filter(self.model_class.token == token).one_or_none()
+
+    def exist(self, primary_id: int) -> bool:
+        return self.session.query(self.model_class).filter(self.model_class.id == primary_id).exists().scalar()
+
+    def exist_by_token(self, token: str) -> bool:
+        return self.session.query(self.model_class).filter(self.model_class.token == token).exists().scalar()
 
     def save(self) -> None:
         self.session.commit()

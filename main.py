@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask_cors import CORS
 
 from app.commons.config import Config
@@ -6,9 +6,9 @@ from app.commons.context import Context
 from app.controllers.auth_controller import AuthController
 from app.controllers.file_controller import FileController
 from app.controllers.ocr_controller import OcrController
-from app.middlewares.auth import Auth
 
 API_VERSION = '/api/v1'
+config = Config()
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -18,9 +18,11 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 def files_upload():
     return FileController(Context(app.logger)).upload(request)
 
+
 @app.route(API_VERSION + '/files/ocr', methods=['POST'])
 def files_ocr():
     return OcrController(Context(app.logger)).execute(request)
+
 
 @app.route(API_VERSION + '/login', methods=['POST'])
 def login():

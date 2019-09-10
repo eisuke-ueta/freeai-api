@@ -29,11 +29,7 @@ class S3Client(object):
                            ContentType='application/json')
         return key
 
-    def upload_file(self,
-                    filename: str,
-                    key: str,
-                    is_public: bool = False,
-                    content_type: str = None) -> str:
+    def upload_file(self, filename: str, key: str, is_public: bool = False, content_type: str = None) -> str:
         """
         Upload a file to an S3 bucket.
 
@@ -51,10 +47,7 @@ class S3Client(object):
             extra_args['ContentType'] = content_type
 
         try:
-            self.s3.upload_file(Filename=filename,
-                                Bucket=self.bucket,
-                                Key=key,
-                                ExtraArgs=extra_args)
+            self.s3.upload_file(Filename=filename, Bucket=self.bucket, Key=key, ExtraArgs=extra_args)
             return self.BASE_S3_URL.format(self.bucket, key)
         except ClientError as e:
             self.logger.error(e)
@@ -76,9 +69,7 @@ class S3Client(object):
         filename = os.path.join(output_dir, key)
 
         try:
-            self.s3.download_file(Bucket=self.bucket,
-                                  Key=key,
-                                  Filename=filename)
+            self.s3.download_file(Bucket=self.bucket, Key=key, Filename=filename)
             return filename
         except ClientError as e:
             self.logger.error(e)
