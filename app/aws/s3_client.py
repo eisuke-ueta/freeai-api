@@ -68,6 +68,7 @@ class S3Client(object):
         key = url.replace(base_s3_url, '')
         filename = os.path.join(output_dir, key)
 
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
         try:
             self.s3.download_file(Bucket=self.bucket, Key=key, Filename=filename)
             return filename
